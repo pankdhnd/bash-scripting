@@ -9,14 +9,20 @@ WORD='Test Word'
 echo "Name of the current user is $USER_NAME"
 ```
 
-### Store output of a command in a variable
+### Store output of a command in a variable. Note its not a single quote charater, but the charater on the tilt button
 ```bash
 VARIABLE=`command`
 Example:
 USER_NAME=`id -un`
 ```
+Another syntax to achieve same result
+```bash
+VARIABLE=$(command)
+Example:
+USER_NAME=$(id -un)
+```
 
-### Sample if the else. Rememberm to add spaces betwen after [[ and before ]]
+### Sample if the else. Remember to add spaces betwen after [[ and before ]]
 ```bash
 if [[ "${UID}" -eq 0 ]]
 then
@@ -39,7 +45,6 @@ help test
 -gt = greather than  
 -ge = greather than or equal  
 ```
-
 
 ### Get exit staus of recently executed command. Bash stores this status in a special variable and can be acceesed by ${?}
 ```bash
@@ -99,4 +104,14 @@ head -c4 /etc/passwd
 ### We can also use head command in congestion with other coommands, lets say echo, to limit the outout by specifying number of characers. Example:
 ```bash
 echo "testing" | head -c4
+```
+
+## Shuffle input lines/lines from file randomly using SHUF (shuffle) command
+```bash
+shuf <filename>
+```
+
+## List each charter from text into seperate line using FOLD command
+```bash
+echo "Testing" | fold -w1
 ```
