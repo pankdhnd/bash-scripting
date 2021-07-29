@@ -75,8 +75,16 @@ then
 fi
 '
 
+for X in Mark, Andy, Ron
+do
+	echo "Hi ${X}"
+done
 
-
+for USER_NAME in ${@}
+do
+	PASSWORD=$(date +%s%N | sha256sum | head -c15)
+	echo "${USER_NAME}:$PASSWORD"
+done
 
 
 

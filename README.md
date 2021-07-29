@@ -150,3 +150,20 @@ NUMBER_OF_PARAMETERS=${#}
 OR
 NUMBER_OF_PARAMETERS=$#
 ```
+
+### For loop syntax
+```bash
+for VAR in Mark, Andy, Ron
+do
+	echo "Hi ${VAR}
+done
+```
+
+### ${@} or $@ stores all the user arguments provided to the script. This way we don't have to calculate the number of arugments provided and we can loop through each one of them. A sample for loop is given below:
+```bash
+for USER_NAME in ${@}
+do
+	PASSWORD=$(date +%s%N | sha256sum | head -c15)
+	echo "${USER_NAME}:$PASSWORD"
+done
+```
