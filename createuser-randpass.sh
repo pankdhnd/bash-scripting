@@ -16,7 +16,9 @@ read -p "Enter your real name: " REAL_NAME
 
 #Generate random password using date, sha256sum commands and limits output to 10 characters using head
 #PASSWORD=`date +%s%N | sha256sum | head -c10`
-PASSWORD=$(date +%s%N | sha256sum | head -c10)
+SPECIAL_CHAR=$(echo "@#$%^&!" | fold -w1 | shuf | head -1)
+echo "Special Character: $SPECIAL_CHAR"
+PASSWORD=$(date +%s%N| sha256sum | head -c400)${SPECIAL_CHAR}
 
 #Using more stronger password using RANDOM variable and adding a random special charater in int using shuf and fold commands
 

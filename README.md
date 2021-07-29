@@ -9,6 +9,13 @@ WORD='Test Word'
 echo "Name of the current user is $USER_NAME"
 ```
 
+### To get list of all executables from the path for a command
+```bash
+which -a <command>
+Example:
+which -a touch
+```
+
 ### Store output of a command in a variable. Note its not a single quote charater, but the charater on the tilt button
 ```bash
 VARIABLE=`command`
@@ -114,4 +121,12 @@ shuf <filename>
 ## List each charter from text into seperate line using FOLD command
 ```bash
 echo "Testing" | fold -w1
+```
+## Passing arguments from command line and acceting them in variable
+```bash
+VARIABLE1=${1}
+VARIABLE2=${3}
+
+Where the number inside the ${} represent the position of the argument passed, and number should start with 1 to accept arguments starting from 1st position.
+${0} is not used, as it just contains the name of the script being executed. If the script is executed by providing from abosolute (full) path, then full path along with file script name is displayed.
 ```
