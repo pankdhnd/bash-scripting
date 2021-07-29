@@ -54,6 +54,38 @@ then
 	echo "Username does not match with the reference username"
 fi
 
+
+#Display what you typed on the command line
+echo "You typed: ${0}"
+
+
+#Display the path and the filename of the script. Run script will full path to view correctly
+#This style of writing is called as command substitution where we directly use commands at place instead of first storing their output in variable, and then using those variables  
+echo "Directory path is: $(dirname ${0}) and filename is $(basename ${0})"
+
+#Display number of arguments provided to the script. This is useful is determining if user has provided sufficient number of arguments to script.
+#We can use an if condition here
+NUMBER_OF_PARAMETERS=${#}  #OR use $#
+echo "Number of arguments: $NUMBER_OF_PARAMETERS"
+
+: '
+if [[ NUMBER_OF_PARAMETERS -lt 1 ]]
+then
+	echo "Insufficient parameters. Usage: $(basename ${0}) PARAMETER"
+fi
+'
+
+
+
+
+
+
+
+
+
+
+
+
 #specify exit code fo the script
 exit 0
 

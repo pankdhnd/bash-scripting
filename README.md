@@ -16,6 +16,20 @@ Example:
 which -a touch
 ```
 
+### Strip full directory path and get only file name
+```bash
+basename <full path>
+```
+Note that basename performs string operations on the given full path. The file or path doesn't necessarily exist.
+
+
+### Strip file name from full path and get directory name/path
+```bash
+dirname <full path>
+```
+Note that dirname performs string operations on the given full path. The file or path doesn't necessarily exist.
+
+
 ### Store output of a command in a variable. Note its not a single quote charater, but the charater on the tilt button
 ```bash
 VARIABLE=`command`
@@ -129,4 +143,10 @@ VARIABLE2=${3}
 
 Where the number inside the ${} represent the position of the argument passed, and number should start with 1 to accept arguments starting from 1st position.
 ${0} is not used, as it just contains the name of the script being executed. If the script is executed by providing from abosolute (full) path, then full path along with file script name is displayed.
+```
+### Get the number of arguments supplied to a script
+```bash
+NUMBER_OF_PARAMETERS=${#}
+OR
+NUMBER_OF_PARAMETERS=$#
 ```
