@@ -151,6 +151,13 @@ OR
 NUMBER_OF_PARAMETERS=$#
 ```
 
+### Shift command shifts the position of command line arguments.
+Lets say you have supplied 4 argumens, and you run shift command with number 2, then you will get only parameter 3 and 4
+```bash
+Syntax: 
+shift 2
+```	
+
 ### For loop syntax
 ```bash
 for VAR in Mark, Andy, Ron
@@ -158,6 +165,15 @@ do
 	echo "Hi ${VAR}
 done
 ```
+
+### While loop syntax
+```bash
+while [[ condition ]]
+do
+	echo "We are inside while"
+done
+```
+
 
 ### ${@} or $@ stores all the user arguments provided to the script. This way we don't have to calculate the number of arugments provided and we can loop through each one of them. A sample for loop is given below:
 ```bash
