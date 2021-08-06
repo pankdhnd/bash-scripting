@@ -191,3 +191,45 @@ locate file.txt
 ```
 
 ### We can use !! to directly execute the last command we ran on he terminal.
+
+## To create an archieve, we can use tar command
+```bash
+tar -cvf archieve.tar <file/directory-to-be-archieved>
+```
+Here, -c stands for create, -v stands for verbose, -f stands for file.  
+-v prints the list of files being added to the archieve. We can exclude this option if we don't want the list to be printed.
+We can also specify -z option to filter the archieve through gzip. We can then sepcify the archieve extension as tar.gz or tgz
+
+### To view the contents of the tar file
+```bash
+tar -tf archieve.tar
+```
+Here, -t stands for list, -f stands for file
+
+### To extract an archieve
+```bash
+tar -xvf archieve.tar
+```
+Here, -z stands for gzip dcomprssion, -x stands for extract, -v stands for verbose, -f stands for file
+-v prints the list of files being extracted from the archieve. We can exclude this option if we don't want the list to be printed.
+We can also specify -z parameter to decompress tar.gz or tgz files.
+
+
+### we can use gzip command to compress the tar files
+```bash
+gzip <name oftar file>
+```
+But as listed above, instead of speperately using gzip, we can just specify -z parameter to tar to create compress the archieve during creation.
+
+
+### to uncompress a gzip archieve
+```bash
+gunzip <tar.gz file>
+```
+
+### !$ shows the very last argument of the last command executed
+```bash
+echo "hello" > directory/file.txt
+cat !$
+```
+In above example, cat !$ will print the contents of directory/file.txt. The command just used the arugments supplied to echo command and did a cat command over it
