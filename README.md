@@ -183,3 +183,11 @@ do
 	echo "${USER_NAME}:$PASSWORD"
 done
 ```
+
+### Locate command searches for a file in a database created by updatedb. This updatedb runs only once in a day so the locate command cannot fetch the latest results. To fetch latest results, run updatedb and then run locate
+```bash
+updatedb
+locate file.txt
+```
+
+### We can use !! to directly execute the last command we ran on he terminal.
