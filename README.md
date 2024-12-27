@@ -30,28 +30,87 @@ dirname <full path>
 Note that dirname performs string operations on the given full path. The file or path doesn't necessarily exist.
 
 
-### Store output of a command in a variable. Note its not a single quote charater, but the charater on the tilt button
+### Store output of a command in a variable. Note its not a single quote charater, but the charater on the tilt button. Using this character is old approach.
 ```bash
 VARIABLE=`command`
 Example:
 USER_NAME=`id -un`
 ```
-Another syntax to achieve same result
+#### Another syntax to achieve same result. This is the new and recommended approach
 ```bash
 VARIABLE=$(command)
 Example:
 USER_NAME=$(id -un)
 ```
 
+### There are FILE operators that can be used to test file/directory related conditions
+For example, 
+```bash
+[ -e /etc/passwd ]
+```
+This checks if the file `/etc/passwd` exists.
+
+There are more such operators, listed below:
+
+* -d FILE - TRUE if file is directory
+* -e FILE - TRUE if file exists
+* -f FILE - TRUE if file exists is a regular file (and not symlink)
+* -r FILE - TRUE if the file is readable by you/user exectuting the script
+* -s FILE - TRUE if file exists and is not empty
+* -w FILE - TRUE if file is writable by you/user executing the script
+* -x FILE - TRUE if file is executable by you/user executing the script 
+
+### There are also STRING operators for test
+* -z STRING - TRUE if string is empty
+* -n STRING - TRUE if string is not empty
+* STRING1=STRING1 - TRUE if strings are equal
+* STRING1!=STRING2 - TRUE if strings are not equal
+
+### Arithmatic operators for test
+* arg1 -eq arg2 - TRUE if arg1 is equal to arg2
+* arg1 -ne arg2 - TRUE if arg1 is not equal to arg2
+
+* arg1 -lt arg2 - TRUE if arg1 is less than arg2
+* arg1 -le arg2 - TRUE if arg1 is less than or equal to arg2
+
+* arg1 -gt arg2 - TRUE if arg1 is greater than arg2
+* arg1 -ge arg2 - TRUE if arg1 is greater than or equal to arg2
+
+
 ### Sample if the else. Remember to add spaces betwen after [[ and before ]]
+Syntax is:
+```bash
+if [condition]
+then
+	command 1
+	command 2
+	command N
+fi
+```
+
 ```bash
 if [[ "${UID}" -eq 0 ]]
 then
-	echo "$USER_NAME is not a root user"
+	echo "You are a root  user"
 else
-	echo "$USER_NAME is a root user"
+	echo "You are not a root user"
 fi
 ```
+
+### If with multiple conditions
+```bash
+if [ condition 1 ]
+then
+  echo "condition 1"
+elif [ condition 2]
+then
+  echo "condition 2"
+else
+  echo "no condition satisfied"
+fi
+```
+
+
 ### To view help for expressions used in if statement
 ```bash
 help test
@@ -136,10 +195,11 @@ shuf <filename>
 ```bash
 echo "Testing" | fold -w1
 ```
+
 ## Passing arguments from command line and acceting them in variable
 ```bash
 VARIABLE1=${1}
-VARIABLE2=${3}
+VARIABLE2=${2}
 
 Where the number inside the ${} represent the position of the argument passed, and number should start with 1 to accept arguments starting from 1st position.
 ${0} is not used, as it just contains the name of the script being executed. If the script is executed by providing from abosolute (full) path, then full path along with file script name is displayed.
@@ -151,6 +211,26 @@ OR
 NUMBER_OF_PARAMETERS=$#
 ```
 
+There is a also a special variable "$@" which gets all the parameters passed. Below is the example:
+```bash
+#!/bin/bash
+
+echo "Executing script: ${0}"
+
+for USER in $@
+do
+  echo "Archiving User: ${USER}"
+
+  # Lock user account
+  passwd -l ${USER}
+
+  # Create an archive of home directory
+  tar cf /archives/${USER}.tar.gz /home/${USER}
+done
+```
+
+
+
 ### Shift command shifts the position of command line arguments.
 Lets say you have supplied 4 argumens, and you run shift command with number 2, then you will get only parameter 3 and 4
 ```bash
@@ -160,11 +240,27 @@ shift 2
 
 ### For loop syntax
 ```bash
-for VAR in Mark, Andy, Ron
+for VAR in Mark Andy on
 do
-	echo "Hi ${VAR}
+	echo "Hi ${VAR}"
 done
 ```
+ 
+#### Simple script using for loop to rename files in a directory
+```bash
+#!/bin/bash
+
+PICTURES=$(ls *jpg)
+DATE=$(date +%F)
+
+for PICTURE in $PICTURES
+do
+  echo "renaming ${PICTURE} to: ${DATE}-${PICTURE}"
+  mv ${PICTURE} ${DATE}-${PICTURE}
+done
+```
+
+
 
 ### While loop syntax
 ```bash
