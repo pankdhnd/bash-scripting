@@ -82,18 +82,18 @@ Syntax is:
 ```bash
 if [condition]
 then
-	command 1
-	command 2
-	command N
+  command 1
+  command 2
+  command N
 fi
 ```
 
 ```bash
 if [[ "${UID}" -eq 0 ]]
 then
-	echo "You are a root  user"
+  echo "You are a root  user"
 else
-	echo "You are not a root user"
+  echo "You are not a root user"
 fi
 ```
 
@@ -130,8 +130,8 @@ help test
 ```bash
 if [[ "${?}" -ne 0 ]]
 then
-	echo "command did not execute successfuly"
-	exit 1
+  echo "command did not execute successfuly"
+  exit 1
 fi
 ```
 
@@ -303,7 +303,7 @@ shift 2
 ```bash
 for VAR in Mark Andy on
 do
-	echo "Hi ${VAR}"
+  echo "Hi ${VAR}"
 done
 ```
 
@@ -342,7 +342,7 @@ done
 ```bash
 while [[ condition ]]
 do
-	echo "We are inside while"
+  echo "We are inside while"
 done
 ```
 
@@ -351,8 +351,8 @@ done
 ```bash
 for USER_NAME in ${@}
 do
-	PASSWORD=$(date +%s%N | sha256sum | head -c15)
-	echo "${USER_NAME}:$PASSWORD"
+  PASSWORD=$(date +%s%N | sha256sum | head -c15)
+  echo "${USER_NAME}:$PASSWORD"
 done
 ```
 
@@ -410,7 +410,7 @@ In above example, cat !$ will print the contents of directory/file.txt. The comm
 You can declare function by using either of the below syntax
 ```bash
 function function-name() {
-	# function code goes here
+  # function code goes here
 }
 ```
 
@@ -418,7 +418,7 @@ OR
 
 ```bash
 function-name(){
-	# function code goes here
+  # function code goes here
 }
 ```
 
@@ -426,11 +426,11 @@ To call a function, you just need to mention the function name, no need to put (
 ```bash
 #!/bin/bash
 function hello(){
-	echo "hello"
-	now # calls now function from within hello
+  echo "hello"
+  now # calls now function from within hello
 }
 function now(){
-	echo "Its $(date +%r)"
+  echo "Its $(date +%r)"
 }
 
 hello # called the hello function here
