@@ -135,6 +135,67 @@ then
 fi
 ```
 
+#### Another example where we ping a server and check the exit code to pring messagea
+```bash
+#!/bin/bash
+HOST="www.google.com"
+
+ping -c 1 $HOST
+
+if [ "$?" -ne "0" ]
+then
+  echo "Host is unreachable"
+else
+  echo "Ping was successful"
+fi
+```
+
+### && = AND
+We can run multiple commands with &&. In this case, the command after && would only run if the previous command was successful. In short, the next command only exectues with previuos command returns 0 as exit code. 
+For example:
+```bash
+mkdir /tmp/bak && cp test.txt /tmp/bak/
+```
+
+Here is an example of previous ping script with && operator
+```bash
+#!/bin/bash
+HOST="www.google.com"
+
+ping -c 1 $HOST && echo "Ping was successful"
+```
+
+### || = OR
+When using OR operator, then next command only runs when previous command files, that means if it returns non-zero exit code
+```bash
+cp test.txt /tmp/bak || cp test.txt tmp
+```
+Here is an example of above ping script with OR operator
+```bash
+#!/bin/bash
+HOST="www.google.com"
+
+ping -c 1 $HOST || echo "$HOST unreachable"
+```
+
+### If you really want to chain the comamnds, then use ; to seperate them. Example:
+```bash
+mkdir -p /tmp/bak;cp test.txt /tmp/bak
+```
+
+### You can return desired exit code by using exit keyword. Example:
+```bash
+#!/bin/bash
+HOST="www.google.com"
+ping -c 1 $HOST
+if [ $"?" -ne "0" ]
+then
+  echo "$HOST unreachable"
+  exit 1
+fi
+exit 0
+```
+
 ### To accept input from user during execution
 ```bash
 read -p "Message prompt" VARIABLE
@@ -245,7 +306,7 @@ do
 	echo "Hi ${VAR}"
 done
 ```
- 
+
 #### Simple script using for loop to rename files in a directory
 ```bash
 #!/bin/bash
@@ -260,6 +321,21 @@ do
 done
 ```
 
+#### Another script that prints if the contents of current directory are file or directory
+```bash
+#!/bin/bash
+LIST=$(ls)
+for FILE in $LIST
+do
+  if [ -f $FILE ]
+  then
+    echo "$FILE is a file"
+  elif [ -d $FILE ]
+  then
+    echo "$FILE is a directory"
+  fiexit 
+done
+```
 
 
 ### While loop syntax
@@ -329,3 +405,46 @@ echo "hello" > directory/file.txt
 cat !$
 ```
 In above example, cat !$ will print the contents of directory/file.txt. The command just used the arugments supplied to echo command and did a cat command over it
+
+### Functions in Bash
+You can declare function by using either of the below syntax
+```bash
+function function-name() {
+	# function code goes here
+}
+```
+
+OR
+
+```bash
+function-name(){
+	# function code goes here
+}
+```
+
+To call a function, you just need to mention the function name, no need to put () while calling. Example below:
+```bash
+#!/bin/bash
+function hello(){
+	echo "hello"
+	now # calls now function from within hello
+}
+function now(){
+	echo "Its $(date +%r)"
+}
+
+hello # called the hello function here
+```
+
+Functions must be defined before they are used. So it is better to define them at the top of the script.
+
+You can pass parameters to the functions like you do for bash script. And from the fuction, you can access them with $1, $2 just like bash script. You can even access all the arguments passed with "$@" symbol, again, just like bash script. Example below:
+```bash
+function hello (){
+	for NAME in $@
+	do
+	  echo "Hello $NAME"
+	done
+}
+hello Json Dan Ryan
+```
