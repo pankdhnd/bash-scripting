@@ -441,10 +441,10 @@ Functions must be defined before they are used. So it is better to define them a
 You can pass parameters to the functions like you do for bash script. And from the fuction, you can access them with $1, $2 just like bash script. You can even access all the arguments passed with "$@" symbol, again, just like bash script. Example below:
 ```bash
 function hello (){
-	for NAME in $@
-	do
-	  echo "Hello $NAME"
-	done
+  for NAME in $@
+  do
+    echo "Hello $NAME"
+  done
 }
 hello Json Dan Ryan
 ```
